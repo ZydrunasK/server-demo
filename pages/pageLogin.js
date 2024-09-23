@@ -2,7 +2,7 @@ import { footer } from "../components/footer.js";
 import { head } from "../components/head.js";
 import { header } from "../components/header.js";
 
-export function pageLogin() {
+export function pageLogin(req) {
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -12,7 +12,7 @@ export function pageLogin() {
             <main>
                 <h1>Login page</h1>
             </main>
-            ${footer()}
+            ${footer(req.pageVisitsCount)}
         </body>
         </html>`;
 }

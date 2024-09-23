@@ -2,7 +2,7 @@ import { footer } from "../components/footer.js";
 import { head } from "../components/head.js";
 import { header } from "../components/header.js";
 
-export function pageServices() {
+export function pageServices(req) {
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -18,7 +18,7 @@ export function pageServices() {
                     <a href="/services/git">GIT</a>
                 </nav>
             </main>
-            ${footer()}
+            ${footer(req.pageVisitsCount)}
         </body>
         </html>`;
 }

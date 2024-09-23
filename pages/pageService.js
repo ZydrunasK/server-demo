@@ -2,7 +2,7 @@ import { footer } from "../components/footer.js";
 import { head } from "../components/head.js";
 import { header } from "../components/header.js";
 
-export function pageService(h1, p) {
+export function pageService(req, h1, p) {
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -13,7 +13,7 @@ export function pageService(h1, p) {
                 <h1>${h1} page</h1>
                 <p>${p}</p>
             </main>
-            ${footer()}
+            ${footer(req.pageVisitsCount)}
         </body>
         </html>`;
 }
