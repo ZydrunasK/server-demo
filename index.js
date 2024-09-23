@@ -8,7 +8,9 @@ import { pageNotFound } from './pages/pageNotFound.js';
 import { pageServices } from './pages/pageServices.js';
 import { pageService } from './pages/pageService.js';
 import { pageServiceNotFound } from './pages/pageServiceNotFound.js';
+import { pageButtons } from './pages/pageButtons.js';
 import { reqLog } from './middleware/reqLog.js';
+import { buttonClick } from './middleware/buttonStuff.js';
 
 const app = express();
 const port = 5114;
@@ -39,7 +41,9 @@ app.get('/services/:name', (req, res) => {
 app.get('/login', (req, res) => res.send(pageLogin(req)));
 app.get('/register', (req, res) => res.send(pageRegister(req)));
 app.get('/secret', (req, res) => res.status(401).send(pageSecret(req)));
+app.get('/buttons', buttonClick, (req, res) => res.send(pageButtons()));
 app.get('*', (req, res) => res.status(404).send(pageNotFound(req)));
+
 
 app.use((req, res, next) => {
     return res.status(404).send("Sorry can't find that!");

@@ -8,6 +8,7 @@ export function header() {
                 <a class="link" href="/login">Login</a>
                 <a class="link" href="/register">Register</a>
                 <a class="link" href="/contact-us">Contact us</a>
+                <a class="link" href="/buttons">Buttons</a>
             </nav>
         </header>`;
 }
