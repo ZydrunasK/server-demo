@@ -124,6 +124,8 @@ studentRouter.get('/:name/marks/add', (req, res) => {
 });
 
 studentRouter.get('/:name/marks/add/:mark', (req, res) => {
+    const studentMarks = students.filter(s => s.name === req.params.name)[0];
+
     return res.json({
         status: 'error',
         msg: 'Dar neaprasyta logika',
