@@ -116,24 +116,47 @@ studentRouter.get('/:name/marks', (req, res) => {
     });
 });
 
-studentRouter.get('/:name/marks/add', (req, res) => {
-    return res.json({
-        status: 'error',
-        msg: 'Dar neaprasyta logika',
-    });
-});
-
 studentRouter.get('/:name/marks/add/:mark', (req, res) => {
-    const studentMarks = students.filter(s => s.name === req.params.name)[0];
+    const student = students.filter(s => s.name === req.params.name)[0];
+    student.marks.push(Number(req.params.mark))
+    console.log(student.marks);
 
+    if (!student) {
+        return res.json({
+            status: 'error',
+            msg: 'tokio studento nera',
+        });
+    }
     return res.json({
-        status: 'error',
-        msg: 'Dar neaprasyta logika',
+        status: 'success',
+        msg: 'Studentui ' + req.params.name + ' pridetas pazimys ' + req.params.mark,
     });
 });
 
-// studentas gauna pazymi
-// suzinoti studento pazymiu vidurki
+studentRouter.get('/:name/marks/average', (req, res) => {
+    const student = students.filter(s => s.name === req.params.name)[0];
+
+    if (!student) {
+        return res.json({
+            status: 'error',
+            msg: 'tokio studento nera',
+        });
+    }
+    if (student.marks.length === 0) {
+        return res.json({
+            status: 'success',
+            msg: 'Studentas dar neturi jokio pazymio',
+        });
+    }
+
+    const avrg = student.marks.reduce((a, b) => a + b) / student.marks.length;
+    
+    return res.json({
+        status: 'success',
+        msg: 'Studentas: ' + req.params.name + ' pazymiu vidurkis: ' + avrg.toFixed(1),
+    });
+});
+
 // studentu vardu sarasas ir ju pazymiu vidurkiai
 
 // extra: studentas gali tureti po kelis telefono numerius
