@@ -25,11 +25,13 @@ studentRouter.get('/add/:name', (req, res) => {
                 msg: 'Toks studentas jau yra uzregistruotas',
             });
         }
-    }
+    };
 
     students.push({
         name: req.params.name,
         marks: [],
+        average: 0,
+        phone: [],
     });
 
     return res.json({
@@ -55,7 +57,7 @@ studentRouter.get('/remove/:name', (req, res) => {
             status: 'error',
             msg: 'Norimas pasalinti studentas nerastas',
         });
-    }
+    };
 
     return res.json({
         status: 'success',
@@ -69,7 +71,7 @@ studentRouter.get('/names', (req, res) => {
             status: 'error',
             msg: 'Nera uzregistruotas nei vienas studentas',
         });
-    }
+    };
 
     return res.json({
         status: 'success',
@@ -85,7 +87,7 @@ studentRouter.get('/:name', (req, res) => {
             status: 'error',
             msg: 'Tokio studento nera',
         });
-    }
+    };
 
     return res.json({
         status: 'success',
@@ -101,14 +103,14 @@ studentRouter.get('/:name/marks', (req, res) => {
             status: 'error',
             msg: 'Tokio studento nera',
         });
-    }
+    };
 
     if (student.marks.length === 0) {
         return res.json({
             status: 'success',
             msg: 'Studentas dar neturi jokio pazymio',
         });
-    }
+    };
 
     return res.json({
         status: 'success',
@@ -119,14 +121,14 @@ studentRouter.get('/:name/marks', (req, res) => {
 studentRouter.get('/:name/marks/add/:mark', (req, res) => {
     const student = students.filter(s => s.name === req.params.name)[0];
     student.marks.push(Number(req.params.mark))
-    console.log(student.marks);
+    student.average = (student.marks.reduce((a, b) => a + b) / student.marks.length).toFixed(1);
 
     if (!student) {
         return res.json({
             status: 'error',
             msg: 'tokio studento nera',
         });
-    }
+    };
     return res.json({
         status: 'success',
         msg: 'Studentui ' + req.params.name + ' pridetas pazimys ' + req.params.mark,
@@ -141,22 +143,88 @@ studentRouter.get('/:name/marks/average', (req, res) => {
             status: 'error',
             msg: 'tokio studento nera',
         });
-    }
+    };
     if (student.marks.length === 0) {
         return res.json({
             status: 'success',
             msg: 'Studentas dar neturi jokio pazymio',
         });
-    }
+    };
 
-    const avrg = student.marks.reduce((a, b) => a + b) / student.marks.length;
-    
     return res.json({
         status: 'success',
-        msg: 'Studentas: ' + req.params.name + ' pazymiu vidurkis: ' + avrg.toFixed(1),
+        msg: 'Studentas: ' + req.params.name + ' | pazymiu vidurkis: ' + student.average,
     });
 });
 
-// studentu vardu sarasas ir ju pazymiu vidurkiai
+studentRouter.get('/marks/average/list', (req, res) => {
+    const list = [];
+    
+    if (students.length === 0) {
+        return res.json({
+            status: 'error',
+            msg: 'nera studentu',
+        });
+    };
+    for (const student of students) {
+        list.push('Studentas: ' + student.name + ' | pazymiu vidurkis: ' + student.average);
+    };
+
+    return res.json({
+        status: 'success',
+        msg: list,
+    });
+});
+
+studentRouter.get('/:name/phone/add/:num', (req, res) => {
+    const student = students.filter(a => a !== req.params.name)[0];
+
+    if (student.name !== req.params.name) {
+        return res.json({
+            status: 'error',
+            msg: 'tokio studento nera',
+        });
+    };
+    
+    if (student.phone.includes(req.params.num)) {  
+        return res.json({
+            status: 'error',
+            msg: 'sis numerius jau egzistuoja',
+        });
+    };
+    
+    if (!student.phone.includes(req.params.num)) {
+        student.phone.push(req.params.num);
+    };
+    console.log(student.phone);
+    
+    return res.json({
+        status: 'success',
+        msg: 'pridetas telefono numerius: ' + req.params.num,
+    });
+});
+
+studentRouter.get('/:name/phone', (req, res) => {
+    const student = students.filter(a => a !== req.params.name)[0];
+    if (!student) {
+        return res.json({
+            status: 'error',
+            msg: 'tokio studento nera',
+        });
+    };
+    if (student.phone.length === 0) {  
+        return res.json({
+            status: 'error',
+            msg: 'Studentas neturi numerio',
+        });
+    };
+
+
+    return res.json({
+        status: 'success',
+        msg: 'Studentas: ' + student.name + ' | telefono numeris: ' + student.phone.join(', '),
+    });
+});
+
 
 // extra: studentas gali tureti po kelis telefono numerius
