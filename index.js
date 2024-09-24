@@ -11,6 +11,7 @@ import { pageServiceNotFound } from './pages/pageServiceNotFound.js';
 import { pageButtons } from './pages/pageButtons.js';
 import { reqLog } from './middleware/reqLog.js';
 import { buttonClick } from './middleware/buttonStuff.js';
+import { apiRouter } from './router/apiRouter.js';
 
 const app = express();
 const port = 5114;
@@ -19,6 +20,8 @@ app.use(express.static('public'));
 
 // global middlewares
 app.use(reqLog);
+
+app.use('/api', apiRouter); 
 
 // routes
 app.get('/', (req, res) => res.send(pageHome(req)));

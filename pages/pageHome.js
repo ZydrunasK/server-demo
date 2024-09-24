@@ -11,9 +11,9 @@ export function pageHome(req) {
             ${header()}
             <main>
                 <h1>Home page</h1>
-                <img src="/img/hero1.jpg" alt="Hero 1" />
-                <img src="/img/hero2.jpg" alt="Hero 2" />
-                <img src="/img/hero3.jpg" alt="Hero 3" />
+                <img src="/img/example.png" alt="Hero 1" />
+                <img src="/img/example.png" alt="Hero 2" />
+                <img src="/img/example.png" alt="Hero 3" />
             </main>
             ${footer(req.pageVisitsCount)}
         </body>
