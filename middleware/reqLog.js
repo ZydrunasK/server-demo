@@ -11,6 +11,5 @@ export function reqLog(req, res, next) {
     } else {
         req.pageVisitsCount++;
     }
-
     next();
 }

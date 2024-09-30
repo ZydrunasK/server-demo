@@ -51,7 +51,7 @@ export class PageTemplate {
     }
 
     script() {
-        return `<script src="/js/home.js" type="module"></script>`;
+        return `<script src="/js/buttons.js" type="module"></script>`;
     }
 
     render(req, h1, p) {
