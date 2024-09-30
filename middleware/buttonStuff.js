@@ -1,5 +1,4 @@
 import { num } from "../data/colors.js";
-import { pressCount } from "../data/pressCount.js";
 
 
 export function buttonClick(req, res, next) {
