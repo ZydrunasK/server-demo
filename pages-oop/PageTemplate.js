@@ -29,6 +29,7 @@ export class PageTemplate {
                     <a class="link" href="/login">Login</a>
                     <a class="link" href="/register">Register</a>
                     <a class="link" href="/contact-us">Contact us</a>
+                    <a class="link" href="/buttons">Buttons</a>
                 </nav>
             </header>`;
     }
@@ -53,14 +54,14 @@ export class PageTemplate {
         return `<script src="/js/home.js" type="module"></script>`;
     }
 
-    render() {
+    render(req, h1, p) {
         return `
             <!DOCTYPE html>
             <html lang="en">
             ${this.head()} 
             <body>
                 ${this.header()}
-                ${this.main()}
+                ${this.main(req, h1, p)}
                 ${this.footer()}
                 ${this.script()}
             </body>

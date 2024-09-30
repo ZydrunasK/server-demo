@@ -11,10 +11,9 @@ export class PageHome extends PageTemplate {
                     <button class="btn" type="button">+</button>
                 </section>
                 <section class="gallery">
-                    <img src="/img/car/1.jpg" alt="Hero car 1" />
-                    <img src="/img/car/2.jpg" alt="Hero car 2" />
-                    <img src="/img/car/3.jpg" alt="Hero car 3" />
-                    <img src="/img/car/4.jpg" alt="Hero car 4" />
+                    <img src="/img/example.png" alt="Hero 1" />
+                    <img src="/img/example.png" alt="Hero 2" />
+                    <img src="/img/example.png" alt="Hero 3" />
                 </section>
             </main>`;
     }
