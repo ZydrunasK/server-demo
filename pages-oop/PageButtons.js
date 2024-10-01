@@ -2,6 +2,10 @@ import { PageTemplate } from "./PageTemplate.js";
 import { colors, num } from "../data/colors.js";
 
 export class PageButtons extends PageTemplate {
+    constructor() {
+        super();
+        this.pageScript=['buttons'];
+    }
     main() {
         return `
             <main>

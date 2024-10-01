@@ -2,20 +2,27 @@ import { counter } from "../data/counter.js";
 
 export class PageTemplate {
     constructor() {
-
+        this.defaultScript= [];
+        this.pageScript=[];
+        this.defaultCss= ['header', 'footer'];
+        this.pageCss=[];
     }
 
     head() {
+        let css = '';
+        for (const element of this.defaultCss) {
+            css += `<link rel="stylesheet" href="/css/components/${element}.css" />`;
+        }
+        for (const element of this.pageCss) {
+            css += `<link rel="stylesheet" href="/css/components/${element}.css" />`;
+        }
         return `
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Server demo</title>
                 <link rel="stylesheet" href="/css/main.css" />
-                <link rel="stylesheet" href="/css/components/header.css" />
-                <link rel="stylesheet" href="/css/components/footer.css" />
-                <link rel="stylesheet" href="/css/components/gallery.css" />
-                <link rel="stylesheet" href="/css/components/counter.css" />
+                ${css}
             </head>`;
     }
 
@@ -51,7 +58,14 @@ export class PageTemplate {
     }
 
     script() {
-        return `<script src="/js/buttons.js" type="module"></script>`;
+        let script = '';
+        for (const element of this.defaultScript) {
+            script += `<script src="/js/${element}.js" type="module"></script>`
+        }
+        for (const element of this.pageScript) {
+            script += `<script src="/js/${element}.js" type="module"></script>`
+        }
+        return script;
     }
 
     render(req, h1, p) {

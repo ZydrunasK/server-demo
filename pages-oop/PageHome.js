@@ -1,6 +1,10 @@
 import { PageTemplate } from "./PageTemplate.js";
 
 export class PageHome extends PageTemplate {
+    constructor() {
+        super();
+        this.pageCss=['gallery'];
+    }
     main() {
         return `
             <main>
